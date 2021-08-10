@@ -1,7 +1,8 @@
 
 ## Belajar RestFull API Menggunakan Laravel (Reservation Hotel)
 
-- CRUD Reservation Room hotel
+### API Resource
+- CRUD Reservation Room hotel 
 - CRUD Category Room hotel
 - CRUD Room hotel
 
