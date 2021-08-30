@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CreateCategoryRequest;
 use App\Http\Requests\Api\UpdateCategoryRequest;
 use App\Http\Resources\APICollection;
 use App\Http\Resources\APIResource;
 use App\Models\Categories;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller

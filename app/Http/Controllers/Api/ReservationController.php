@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ReservationRequest;
 use App\Http\Resources\APICollection;
 use App\Http\Resources\APIResource;

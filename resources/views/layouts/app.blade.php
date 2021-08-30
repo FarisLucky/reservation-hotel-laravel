@@ -30,5 +30,7 @@
 @yield('content')
 <!-- Essential javascripts for application to work-->
 @include('partials.footer')
+
+@yield('javascript')
 </body>
 </html>

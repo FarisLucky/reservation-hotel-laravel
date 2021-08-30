@@ -15,6 +15,9 @@
     <div class="cover"></div>
 </section>
 <section class="login-content">
+    @if(session('error'))
+    <span type="hidden" id="error" data-value=" {{session('error')}} ">
+    @endif
     <div class="logo">
         <h1>Sign In User</h1>
     </div>
@@ -89,6 +92,15 @@
 <script src="{{asset('js/main.js')}}"></script>
 <!-- The javascript plugin to display page loading on top-->
 <script src="{{asset('js/plugins/pace.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/plugins/bootstrap-notify.min.js') }}"></script>
+<script>
+    (function (){$.notify({
+        message: document.getElementById('error').getAttribute('data-value'),
+        icon: 'fa fa-check'
+    },{
+        type: "danger"
+    })})();
+</script>
 <script type="text/javascript">
     // Login Page Flipbox control
     $('.login-content [data-toggle="flip"]').click(function() {

@@ -19,5 +19,8 @@ Route::middleware('auth')
 
 Auth::routes();
 
+Route::middleware('auth')->group(function (){
+    Route::resource('rooms',\App\Http\Controllers\RoomController::class);
+});
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

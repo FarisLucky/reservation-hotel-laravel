@@ -7,25 +7,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class Rooms extends Model implements ApiModelInterface
+class InvoiceGuest extends Model implements ApiModelInterface
 {
     use HasFactory, UseUuid;
 
-    protected $primaryKey = "room_id";
+    protected $primaryKey = 'invoice_id';
 
     protected $fillable = [
-        'room_number',
-        'description',
-        'category_id'
+        'guest_id',
+        'reservation_id',
+        'invoice_amount',
+        'ts_issued',
+        'ts_paid',
+        'ts_canceled'
     ];
-
-    public function category() {
-        return $this->belongsTo(Categories::class,"category_id","category_id");
-    }
 
     public function type(): string
     {
-        return "room";
+        return 'invoice_guest';
     }
 
     public function allowedAttributes(): Collection
@@ -33,7 +32,10 @@ class Rooms extends Model implements ApiModelInterface
         return collect($this->getAttributes())
             ->filter(function ($item, $key) {
                 return !collect($this->getHidden())->contains($key) && $key !== $this->getKeyName();
-            });
+            })
+            ->merge([
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at,
+            ]);
     }
-
 }
