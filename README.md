@@ -1,7 +1,9 @@
 
 ## Belajar RestFull API Menggunakan Laravel (Reservation Hotel)
+Terima kasih sudah berkunjung. Kali ini saya belajar restfull dengan membuat restfull api menggunakan laravel pada __Case__ reservasi hotel.
 
-- CRUD Reservation Room hotel
+### API Resource
+- CRUD Reservation Room hotel 
 - CRUD Category Room hotel
 - CRUD Room hotel
 
