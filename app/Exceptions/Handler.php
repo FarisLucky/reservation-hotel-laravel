@@ -6,15 +6,10 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -99,12 +94,12 @@ class Handler extends ExceptionHandler
     {
         return $request->expectsJson()
             ? response()->json([
-                    'status' => $exception->getCode(),
+                    'status' => Response::HTTP_UNAUTHORIZED,
                     'errors' => [
-                        'title' => 'Unauthenticated',
+                        'title' => $exception->getMessage(),
                         'detail' => 'You are not authenticated'
                     ]
-                ], Response::HTTP_FORBIDDEN)
+                ], Response::HTTP_UNAUTHORIZED)
             : redirect()->guest($exception->redirectTo() ?? route('login'));
     }
 

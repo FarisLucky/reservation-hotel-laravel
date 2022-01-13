@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UpdateRoomRequest;
-use App\Http\Resources\Api\APICollection;
+use App\Http\Requests\Api\CreateRoomRequest;
+use App\Http\Resources\APICollection;
 use App\Http\Resources\APIResource;
 use App\Models\Reservation;
 use App\Models\Rooms;
@@ -20,7 +21,7 @@ class RoomController extends Controller
         return new APICollection($rooms);
     }
 
-    public function store(UpdateRoomRequest $request)
+    public function store(CreateRoomRequest $request)
     {
         $room = Reservation::create($request->input('data.attributes'));
         return (new APIResource($room))
@@ -28,20 +29,23 @@ class RoomController extends Controller
             ->header('Location', route('rooms.show', ['rooms' => $room]));
     }
 
-    public function show(Rooms $rooms)
+    public function show(Rooms $room)
     {
-        return new APIResource($rooms);
+		if(!$room->exists()){
+			throw new ModelNotFoundException();
+		}
+		return new APIResource($room);
     }
 
-    public function update(UpdateRoomRequest $request, Rooms $rooms)
+    public function update(UpdateRoomRequest $request, Rooms $room)
     {
-        $rooms->update($request->input('data.attributes'));
-        return new APIResource($rooms);
+        $room->update($request->input('data.attributes'));
+        return new APIResource($room);
     }
 
-    public function destroy(Rooms $rooms)
+    public function destroy(Rooms $room)
     {
-        $rooms->delete();
+        $room->delete();
         return response(null, 204);
     }
 }

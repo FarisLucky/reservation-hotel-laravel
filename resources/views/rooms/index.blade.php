@@ -49,12 +49,12 @@
                                     <td>{{$room->category->category_name}}</td>
                                     <td>{{$room->description}}</td>
                                     <td>
-                                        <a href="{{ route('rooms.show',$room->room_id) }}" class="btn btn-info">
+                                        <a href="{{ route('rooms.edit',$room->room_id) }}" class="btn btn-info">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <form action="{{ route('rooms.destroy',$room->room_id) }}">
+                                        <form action="{{ route('rooms.destroy',$room->room_id) }}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">

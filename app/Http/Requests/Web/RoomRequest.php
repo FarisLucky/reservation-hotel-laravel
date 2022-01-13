@@ -35,8 +35,11 @@ class RoomRequest extends FormRequest implements MergeRulesInterface
 
     public function mergeRules(array $rules): array
     {
-        if ($this->method === 'PUT' || $this->method === 'PATCH') {
-            $rules = array_merge($rules, ['room_id' => 'required']);
+        if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
+            $rules = array_merge($rules, [
+                'room_id' => 'required',
+                'room_number' => 'required'
+            ]);
         }
         return $rules;
     }

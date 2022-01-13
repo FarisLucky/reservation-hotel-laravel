@@ -19,8 +19,7 @@ class ReservationSeeder extends Seeder
         $user = User::orderBy('created_at', 'desc')->first();
         $room = Rooms::all('room_id');
         Reservation::factory(100)->create([
-            'reservation_user_id' => $user->user_id,
-            'reservation_room' => $room[0]->room_id
+            'reservation_user_id' => $user->user_id
         ]);
     }
 }

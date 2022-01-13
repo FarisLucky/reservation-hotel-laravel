@@ -24,7 +24,10 @@ class CreateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'data' => 'required|array',
+            'data.type' => 'required|in:category',
+            'data.attributes' => 'required|array',
+            'data.attributes.category_name' => 'required|string',
         ];
     }
 }

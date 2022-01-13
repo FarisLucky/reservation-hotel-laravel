@@ -16,7 +16,7 @@ class RoomSeeder extends Seeder
     public function run()
     {
         Categories::factory(20)->create();
-        Rooms::factory(500)->create([
+        Rooms::factory(10)->create([
             'category_id' => random_int(1,20)
         ]);
     }

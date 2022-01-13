@@ -7,6 +7,7 @@ use App\Models\Categories;
 use App\Models\Rooms;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class RoomController extends Controller
 {
@@ -37,48 +38,41 @@ class RoomController extends Controller
             ->with('success','Berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function edit(Rooms $room)
     {
-        //
+        if(!$room->exists) {
+            abort(404, 'Room tidak ditemukan');
+        }
+        $room->load('category');
+        $category = Categories::all();
+        return view('rooms.edit',compact('room','category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(RoomRequest $request, Rooms $room)
     {
-        //
+        try {
+            $data = Arr::except($request->validated(),'room_id');
+            $room->update($data);
+        } catch (QueryException $queryException) {
+            return redirect()->back()->with('error',$queryException->getMessage());
+        } catch (\HttpException $httpException) {
+            return redirect()->back()->with('error',$httpException->getMessage());
+        }
+        return redirect()
+            ->back()
+            ->with('success','Berhasil diubah');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function destroy(Rooms $room)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        try {
+            if ($room->delete()) {
+                return redirect()->back()->with('success','Berhasil dihapus');
+            }
+        } catch (QueryException $queryException) {
+            return redirect()->back()->with('error',$queryException->getMessage());
+        } catch (\HttpException $httpException) {
+            return redirect()->back()->with('error',$httpException->getMessage());
+        }
     }
 }

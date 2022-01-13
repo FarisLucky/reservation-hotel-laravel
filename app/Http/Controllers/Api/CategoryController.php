@@ -24,12 +24,12 @@ class CategoryController extends Controller
         $category = Categories::create($request->input('data.attributes'));
         return (new APIResource($category))
             ->response()
-            ->header('Location',route('categories.show', ['categories'=>$category]));
+            ->header('Location',route('api.categories.show', ['category'=>$category]));
     }
 
-    public function show(Categories $categories)
+    public function show(Categories $category)
     {
-        return new APIResource($categories);
+        return new APIResource($category);
     }
 
     public function update(UpdateCategoryRequest $request, Categories $category)
@@ -38,8 +38,9 @@ class CategoryController extends Controller
         return new APIResource($category);
     }
 
-    public function destroy(Categories $categories)
+    public function destroy(Categories $category)
     {
+        $category->delete();
         return response(null, Response::HTTP_NO_CONTENT);
     }
 }

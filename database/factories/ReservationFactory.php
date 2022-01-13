@@ -24,7 +24,6 @@ class ReservationFactory extends Factory
         return [
             'reservation_id' => $this->faker->uuid(),
             'reservation_user_id' => $this->faker->uuid(),
-            'reservation_room' => 'Hotel '.random_int(1, 20),
             'reservation_price' => $this->faker->randomDigitNotNull(),
             'reservation_num_of_rooms' => random_int(1, 20),
             'reservation_num_of_persons' => random_int(1, 5),
